@@ -49,11 +49,13 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div className="home-container">
-        <div className="loading-container">
-          <div className="loading-spinner"></div>
-          <h2 className="loading-text">Loading our amazing products...</h2>
-          <p className="loading-subtext">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-600 mx-auto mb-4"></div>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+            Loading our amazing products...
+          </h2>
+          <p className="text-gray-600">
             Please wait while we fetch the latest items for you
           </p>
         </div>
@@ -63,14 +65,16 @@ export default function Home() {
 
   if (error) {
     return (
-      <div className="home-container">
-        <div className="error-container">
-          <div className="error-icon">⚠️</div>
-          <h2 className="error-title">Oops! Something went wrong</h2>
-          <p className="error-message">{error}</p>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center bg-white p-8 rounded-lg shadow-sm max-w-md">
+          <div className="text-6xl mb-4">⚠️</div>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+            Oops! Something went wrong
+          </h2>
+          <p className="text-gray-600 mb-6">{error}</p>
           <button
-            className="retry-button"
             onClick={() => window.location.reload()}
+            className="bg-gray-800 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors"
           >
             Try Again
           </button>
@@ -80,111 +84,144 @@ export default function Home() {
   }
 
   return (
-    <div className="home-container">
+    <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <h1 className="hero-title">Welcome to Shopee</h1>
-          <p className="hero-subtitle">
+      <section className="bg-gradient-to-r from-gray-800 to-gray-600 text-white py-16">
+        <div className="max-w-6xl mx-auto px-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-center mb-4">
+            Welcome to Shopee
+          </h1>
+          <p className="text-xl text-center text-gray-200 mb-12">
             Discover amazing products at unbeatable prices
           </p>
-          <div className="hero-stats">
-            <div className="stat-item">
-              <span className="stat-number">{productLists.length}</span>
-              <span className="stat-label">Products</span>
+          <div className="flex flex-wrap justify-center gap-8">
+            <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-6 min-w-[120px]">
+              <span className="block text-3xl font-bold">
+                {productLists.length}
+              </span>
+              <span className="text-gray-200">Products</span>
             </div>
-            <div className="stat-item">
-              <span className="stat-number">{categories.length - 1}</span>
-              <span className="stat-label">Categories</span>
+            <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-6 min-w-[120px]">
+              <span className="block text-3xl font-bold">
+                {categories.length - 1}
+              </span>
+              <span className="text-gray-200">Categories</span>
             </div>
-            <div className="stat-item">
-              <span className="stat-number">100%</span>
-              <span className="stat-label">Satisfaction</span>
+            <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-6 min-w-[120px]">
+              <span className="block text-3xl font-bold">100%</span>
+              <span className="text-gray-200">Satisfaction</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* Products Section */}
-      <section className="products-section">
-        <div className="products-header">
-          <h2>Our Products</h2>
-          <p>Choose from our wide selection of quality items</p>
-        </div>
+      <section className="py-12">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">
+              Our Products
+            </h2>
+            <p className="text-lg text-gray-600">
+              Choose from our wide selection of quality items
+            </p>
+          </div>
 
-        {/* Filters and Sort */}
-        <div className="products-controls">
-          <div className="filters-container">
-            <h3>Categories</h3>
-            <div className="category-filters">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  className={`category-btn ${
-                    selectedCategory === category ? "active" : ""
-                  }`}
-                  onClick={() => setSelectedCategory(category)}
+          {/* Filters and Sort */}
+          <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-gray-800 mb-3">
+                  Categories
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => setSelectedCategory(category)}
+                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                        selectedCategory === category
+                          ? "bg-gray-800 text-white"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      }`}
+                    >
+                      {category === "all"
+                        ? "All Products"
+                        : category.charAt(0).toUpperCase() + category.slice(1)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="lg:w-64">
+                <label
+                  htmlFor="sort-select"
+                  className="block text-sm font-semibold text-gray-800 mb-2"
                 >
-                  {category === "all"
-                    ? "All Products"
-                    : category.charAt(0).toUpperCase() + category.slice(1)}
-                </button>
-              ))}
+                  Sort by:
+                </label>
+                <select
+                  id="sort-select"
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                >
+                  <option value="default">Default</option>
+                  <option value="name">Name (A-Z)</option>
+                  <option value="price-low">Price (Low to High)</option>
+                  <option value="price-high">Price (High to Low)</option>
+                  <option value="rating">Rating (High to Low)</option>
+                </select>
+              </div>
             </div>
           </div>
 
-          <div className="sort-container">
-            <label htmlFor="sort-select">Sort by:</label>
-            <select
-              id="sort-select"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="sort-select"
-            >
-              <option value="default">Default</option>
-              <option value="name">Name (A-Z)</option>
-              <option value="price-low">Price (Low to High)</option>
-              <option value="price-high">Price (High to Low)</option>
-              <option value="rating">Rating (High to Low)</option>
-            </select>
-          </div>
-        </div>
-
-        {/* Products Grid */}
-        <div className="products-container">
-          {filteredAndSortedProducts.length > 0 ? (
-            filteredAndSortedProducts.map(
-              ({ id, title, rating, price, image, description, category }) => (
-                <Product
-                  key={id}
-                  productId={id}
-                  title={title}
-                  rating={rating.rate}
-                  price={price}
-                  imageUrl={image}
-                  description={description}
-                  category={category}
-                />
+          {/* Products Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredAndSortedProducts.length > 0 ? (
+              filteredAndSortedProducts.map(
+                ({
+                  id,
+                  title,
+                  rating,
+                  price,
+                  image,
+                  description,
+                  category,
+                }) => (
+                  <Product
+                    key={id}
+                    productId={id}
+                    title={title}
+                    rating={rating.rate}
+                    price={price}
+                    imageUrl={image}
+                    description={description}
+                    category={category}
+                  />
+                )
               )
-            )
-          ) : (
-            <div className="no-products">
-              <div className="no-products-icon">📦</div>
-              <h3>No products found</h3>
-              <p>
-                Try selecting a different category or adjusting your filters.
-              </p>
+            ) : (
+              <div className="col-span-full flex flex-col items-center justify-center py-16">
+                <div className="text-6xl mb-4">📦</div>
+                <h3 className="text-2xl font-semibold text-gray-800 mb-2">
+                  No products found
+                </h3>
+                <p className="text-gray-600">
+                  Try selecting a different category or adjusting your filters.
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Products Count */}
+          {filteredAndSortedProducts.length > 0 && (
+            <div className="text-center mt-8 text-gray-600">
+              Showing {filteredAndSortedProducts.length} of{" "}
+              {productLists.length} products
             </div>
           )}
         </div>
-
-        {/* Products Count */}
-        {filteredAndSortedProducts.length > 0 && (
-          <div className="products-count">
-            Showing {filteredAndSortedProducts.length} of {productLists.length}{" "}
-            products
-          </div>
-        )}
       </section>
     </div>
   );

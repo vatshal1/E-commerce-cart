@@ -14,26 +14,32 @@ const slice = createSlice({
       // console.log("existingItemIndex & action", existingItemIndex, action);
 
       //. if 'product' present
-      if (existingItemIndex != -1) state[existingItemIndex].quantity += 1;
+      if (existingItemIndex !== -1) state[existingItemIndex].quantity += 1;
       else state.push({ ...action.payload, quantity: 1 });
     },
 
     removeCartItem: (state, action) => {
       const existingItemIndex = findItemIndex(state, action);
-      state.splice(existingItemIndex, 1);
+      if (existingItemIndex !== -1) {
+        state.splice(existingItemIndex, 1);
+      }
     },
 
     increaseCartItemQuantity(state, action) {
       const existingItemIndex = findItemIndex(state, action);
-      state[existingItemIndex].quantity += 1;
+      if (existingItemIndex !== -1) {
+        state[existingItemIndex].quantity += 1;
+      }
     },
 
     decreaseCartItemQuantity(state, action) {
       const existingItemIndex = findItemIndex(state, action);
 
-      if (state[existingItemIndex].quantity == 1)
-        state.splice(existingItemIndex, 1);
-      else state[existingItemIndex].quantity -= 1;
+      if (existingItemIndex !== -1) {
+        if (state[existingItemIndex].quantity === 1)
+          state.splice(existingItemIndex, 1);
+        else state[existingItemIndex].quantity -= 1;
+      }
     },
   },
 });

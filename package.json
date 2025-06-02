@@ -12,12 +12,14 @@
   "type": "commonjs",
   "dependencies": {
     "@reduxjs/toolkit": "2.8.2",
+    "@tailwindcss/postcss": "4.1.8",
     "immer": "10.1.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-redux": "9.2.0",
     "react-router-dom": "6.20.0",
-    "redux": "5.0.1"
+    "redux": "5.0.1",
+    "tailwindcss": "4.1.8"
   },
   "devDependencies": {
     "parcel": "^2.12.0"
