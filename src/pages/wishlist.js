@@ -73,7 +73,7 @@ export default function Wishlist() {
                   src={item.imageUrl}
                   alt={`${item.title} - wishlist item`}
                   loading="lazy"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               </div>
 

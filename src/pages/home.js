@@ -7,16 +7,18 @@ import {
   getProductError,
   getProductLoadingState,
 } from "../store/slices/productSlice";
+import Loader from "../Components/Loader";
+import Error from "../Components/Error";
 
 export default function Home() {
   const productLists = useSelector(getAllProducts);
   const isLoading = useSelector(getProductLoadingState);
-  const error = useSelector(getProductError);
 
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("default");
+  const error = useSelector(getProductError);
 
-  // Get unique categories
+  //-> Get unique categories
   const categories = useMemo(() => {
     const uniqueCategories = [
       ...new Set(productLists.map((product) => product.category)),
@@ -24,7 +26,7 @@ export default function Home() {
     return ["all", ...uniqueCategories];
   }, [productLists]);
 
-  // Filter and sort products
+  //-> Filter and sort products
   const filteredAndSortedProducts = useMemo(() => {
     let filtered =
       selectedCategory === "all"
@@ -47,41 +49,10 @@ export default function Home() {
     }
   }, [productLists, selectedCategory, sortBy]);
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-600 mx-auto mb-4"></div>
-          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-            Loading our amazing products...
-          </h2>
-          <p className="text-gray-600">
-            Please wait while we fetch the latest items for you
-          </p>
-        </div>
-      </div>
-    );
-  }
+  //-> loading state
+  if (isLoading) return <Loader />;
 
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center bg-white p-8 rounded-lg shadow-sm max-w-md">
-          <div className="text-6xl mb-4">⚠️</div>
-          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-            Oops! Something went wrong
-          </h2>
-          <p className="text-gray-600 mb-6">{error}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="bg-gray-800 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors"
-          >
-            Try Again
-          </button>
-        </div>
-      </div>
-    );
-  }
+  if (error) return <Error error={error} />;
 
   return (
     <div className="min-h-screen bg-gray-50">

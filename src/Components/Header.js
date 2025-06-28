@@ -18,20 +18,27 @@ export default function Header() {
   const wishlistItems = useSelector(getWishlistAllItems);
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 py-3">
+    <header className="bg-gray-300 shadow-sm border-b border-gray-200 sticky top-0 z-50">
+      <div className="max-w-6xl mx-4 xl:mx-auto py-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-800">
+          {/* //-> Name of Cart  */}
+          <h1 className="text-3xl font-bold text-gray-800">
             <Link to="/" className="hover:text-blue-600 transition-colors">
               Shopee
             </Link>
           </h1>
-          <nav className="flex items-center space-x-6">
+
+          <div className="flex items-center space-x-6">
+            {/* //-> Wishlists  */}
             <Link
               to="/wishlist"
               className="relative flex items-center space-x-1 text-gray-600 hover:text-red-500 transition-colors"
             >
-              <span role="img" aria-label="wishlist" className="text-xl">
+              <span
+                role="img"
+                aria-label="wishlist"
+                className="text-2xl sm:text-3xl"
+              >
                 ❤️
               </span>
               {wishlistItems.length > 0 && (
@@ -40,11 +47,17 @@ export default function Header() {
                 </span>
               )}
             </Link>
+
+            {/* //-> Cart */}
             <Link
               to="/cart"
               className="relative flex items-center space-x-1 text-gray-600 hover:text-blue-600 transition-colors"
             >
-              <span role="img" aria-label="cart" className="text-xl">
+              <span
+                role="img"
+                aria-label="cart"
+                className="text-2xl sm:text-3xl"
+              >
                 🛒
               </span>
               {cartItems.length > 0 && (
@@ -53,7 +66,7 @@ export default function Header() {
                 </span>
               )}
             </Link>
-          </nav>
+          </div>
         </div>
       </div>
     </header>
