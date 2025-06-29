@@ -4,7 +4,7 @@ export const fetchProductsData = createAsyncThunk(
   "product/fetchProductItems",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch("https://fakestoreapi.com/products-broken");
+      const response = await fetch("https://fakestoreapi.com/products");
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
